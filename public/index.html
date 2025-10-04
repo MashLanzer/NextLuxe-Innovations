@@ -1,635 +1,89 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secretos - Registro y Perfil</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-</head>
-<body>
-    <!-- Contenido Principal -->
-    <main class="main-content">
-        <!-- ============================================= -->
-        <!--         PANTALLA DE LOGIN MEJORADA           -->
-        <!-- ============================================= -->
-        <div id="loginScreen" class="login-screen visible">
-            <div class="login-background">
-                <div class="background-shapes">
-                    <div class="shape shape-1"></div>
-                    <div class="shape shape-2"></div>
-                    <div class="shape shape-3"></div>
-                </div>
-            </div>
-            
-            <div class="login-wrapper">
-                <!-- Panel Izquierdo - Bienvenida -->
-                <div class="login-welcome-panel">
-                    <div class="welcome-content">
-                        <div class="logo-large">
-                            <div class="logo-icon-large">
-                                <i class="fas fa-user-secret"></i>
-                            </div>
-                            <span class="logo-text-large">Secretos</span>
-                        </div>
-                        <h1>Conecta con tu verdadero yo</h1>
-                        <p>Un espacio seguro para compartir tus pensamientos más profundos. Únete a una comunidad que te entiende.</p>
-                        
-                        <div class="features-preview">
-                            <div class="feature-item">
-                                <i class="fas fa-shield-alt"></i>
-                                <span>100% Anónimo</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-heart"></i>
-                                <span>Comunidad Comprensiva</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-lock"></i>
-                                <span>Totalmente Seguro</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
 
-                <!-- Panel Derecho - Formularios -->
-                <div class="login-form-panel">
-                    <div class="form-wrapper">
-                        <!-- Formulario de Iniciar Sesión -->
-                        <div class="form-container auth-form active" id="loginForm">
-                            <div class="form-header">
-                                <h2>Bienvenido de vuelta</h2>
-                                <p>Inicia sesión para continuar tu viaje</p>
-                            </div>
-                            
-                            <form class="auth-form-element" id="loginFormElement">
-                                <div class="input-group">
-                                    <div class="input-wrapper">
-                                        <i class="fas fa-envelope input-icon"></i>
-                                        <input type="email" id="loginEmail" placeholder="Correo electrónico" required>
-                                        <div class="input-validation" id="loginEmailValidation"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="input-group">
-                                    <div class="input-wrapper password-wrapper">
-                                        <i class="fas fa-lock input-icon"></i>
-                                        <input type="password" id="loginPassword" placeholder="Contraseña" required>
-                                        <button type="button" class="toggle-password" tabindex="-1">
-                                            <i class="fas fa-eye-slash"></i>
-                                        </button>
-                                        <div class="input-validation" id="loginPasswordValidation"></div>
-                                    </div>
-                                </div>
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/12.3.0/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/12.3.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/12.3.0/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/12.3.0/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/12.3.0/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/12.3.0/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/12.3.0/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/12.3.0/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/12.3.0/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/12.3.0/firebase-performance-compat.js"></script>
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
-                                <div class="form-options">
-                                    <label class="checkbox-container">
-                                        <input type="checkbox" id="rememberMe">
-                                        <span class="checkmark"></span>
-                                        <span class="checkbox-text">Recordarme</span>
-                                    </label>
-                                    <a href="#" class="forgot-password" id="forgotPasswordLink">¿Olvidaste tu contraseña?</a>
-                                </div>
-
-                                <button type="submit" class="auth-btn primary">
-                                    <span class="btn-text">Iniciar Sesión</span>
-                                    <div class="btn-loader"></div>
-                                </button>
-                            </form>
-                            
-                            <div class="social-login">
-                                <div class="divider">
-                                    <span>o continúa con</span>
-                                </div>
-                                <div class="social-buttons">
-                                    <button class="social-btn google-btn" id="googleLoginBtn">
-                                        <i class="fab fa-google"></i>
-                                        <span>Google</span>
-                                    </button>
-                                    <button class="social-btn facebook-btn" id="facebookLoginBtn">
-                                        <i class="fab fa-facebook-f"></i>
-                                        <span>Facebook</span>
-                                    </button>
-                                    <button class="social-btn apple-btn" id="appleLoginBtn">
-                                        <i class="fab fa-apple"></i>
-                                        <span>Apple</span>
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <p class="form-switch-text">
-                                ¿No tienes cuenta? 
-                                <a href="#" id="showRegister" class="switch-link">Regístrate gratis</a>
-                            </p>
-                        </div>
-                        
-                        <!-- Formulario de Crear Cuenta -->
-                        <div class="form-container auth-form" id="registerForm">
-                            <div class="form-header">
-                                <h2>Crea tu cuenta</h2>
-                                <p>Únete a nuestra comunidad de confianza</p>
-                            </div>
-                            
-                            <form class="auth-form-element" id="registerFormElement">
-                                <div class="input-group">
-                                    <div class="input-wrapper">
-                                        <i class="fas fa-user input-icon"></i>
-                                        <input type="text" id="registerName" placeholder="Nombre de usuario" required>
-                                        <div class="input-validation" id="registerNameValidation"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="input-group">
-                                    <div class="input-wrapper">
-                                        <i class="fas fa-envelope input-icon"></i>
-                                        <input type="email" id="registerEmail" placeholder="Correo electrónico" required>
-                                        <div class="input-validation" id="registerEmailValidation"></div>
-                                    </div>
-                                </div>
-                                
-                                <div class="input-group">
-                                    <div class="input-wrapper password-wrapper">
-                                        <i class="fas fa-lock input-icon"></i>
-                                        <input type="password" id="registerPassword" placeholder="Contraseña" required>
-                                        <button type="button" class="toggle-password" tabindex="-1">
-                                            <i class="fas fa-eye-slash"></i>
-                                        </button>
-                                        <div class="input-validation" id="registerPasswordValidation"></div>
-                                    </div>
-                                      <!-- REEMPLAZA EL ANTIGUO BLOQUE CON ESTE -->
-<div id="password-strength-container" class="password-strength-container">
-    <div class="strength-meter-bar">
-        <div class="bar-segment"></div>
-        <div class="bar-segment"></div>
-        <div class="bar-segment"></div>
-        <div class="bar-segment"></div>
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="message">
+      <h2>Welcome</h2>
+      <h1>Firebase Hosting Setup Complete</h1>
+      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
+      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
     </div>
-    <div class="strength-meter-text">
-        <span id="strength-text"></span>
-        <div class="strength-criteria-tooltip">
-            <i class="fas fa-info-circle"></i>
-            <ul class="criteria-list">
-                <li id="length-check"><i class="fas fa-times-circle"></i> Mínimo 8 caracteres</li>
-                <li id="uppercase-check"><i class="fas fa-times-circle"></i> Una mayúscula</li>
-                <li id="number-check"><i class="fas fa-times-circle"></i> Un número</li>
-                <li id="special-check"><i class="fas fa-times-circle"></i> Un caracter especial</li>
-            </ul>
-        </div>
-    </div>
-</div>
-<!-- FIN DEL NUEVO BLOQUE -->
+    <p id="load">Firebase SDK Loading&hellip;</p>
 
-                                </div>
-                                
-                                <div class="input-group">
-                                    <div class="input-wrapper password-wrapper">
-                                        <i class="fas fa-lock input-icon"></i>
-                                        <input type="password" id="registerConfirmPassword" placeholder="Confirmar contraseña" required>
-                                        <button type="button" class="toggle-password" tabindex="-1">
-                                            <i class="fas fa-eye-slash"></i>
-                                        </button>
-                                        <div class="input-validation" id="registerConfirmPasswordValidation"></div>
-                                    </div>
-                                </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const loadEl = document.querySelector('#load');
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // // The Firebase SDK is initialized and available here!
+        //
+        // firebase.auth().onAuthStateChanged(user => { });
+        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+        // firebase.firestore().doc('/foo/bar').get().then(() => { });
+        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
+        // firebase.messaging().requestPermission().then(() => { });
+        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        // firebase.analytics(); // call to activate
+        // firebase.analytics().logEvent('tutorial_completed');
+        // firebase.performance(); // call to activate
+        //
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-                                <button type="submit" class="auth-btn primary">
-                                    <span class="btn-text">Registrarse</span>
-                                    <div class="btn-loader"></div>
-                                </button>
-                            </form>
-                            
-                            <div class="social-login">
-                                <div class="divider">
-                                    <span>o continúa con</span>
-                                </div>
-                                <div class="social-buttons">
-                                    <button class="social-btn google-btn" id="googleRegisterBtn">
-                                        <i class="fab fa-google"></i>
-                                        <span>Google</span>
-                                    </button>
-                                    <button class="social-btn facebook-btn" id="facebookRegisterBtn">
-                                        <i class="fab fa-facebook-f"></i>
-                                        <span>Facebook</span>
-                                    </button>
-                                    <button class="social-btn apple-btn" id="appleRegisterBtn">
-                                        <i class="fab fa-apple"></i>
-                                        <span>Apple</span>
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <p class="form-switch-text">
-                                ¿Ya tienes cuenta? 
-                                <a href="#" id="showLogin" class="switch-link">Inicia sesión</a>
-                            </p>
-                        </div>
-
-                        <!-- Formulario de Recuperar Contraseña -->
-                        <div class="form-container auth-form" id="forgotPasswordForm">
-                            <div class="form-header">
-                                <h2>¿Olvidaste tu contraseña?</h2>
-                                <p>Ingresa tu correo electrónico para restablecerla</p>
-                            </div>
-                            <form class="auth-form-element" id="forgotPasswordFormElement">
-                                <div class="input-group">
-                                    <div class="input-wrapper">
-                                        <i class="fas fa-envelope input-icon"></i>
-                                        <input type="email" id="forgotEmail" placeholder="Correo electrónico" required>
-                                        <div class="input-validation" id="forgotEmailValidation"></div>
-                                    </div>
-                                </div>
-                                <button type="submit" class="auth-btn primary">
-                                    <span class="btn-text">Restablecer Contraseña</span>
-                                    <div class="btn-loader"></div>
-                                </button>
-                            </form>
-                            <p class="form-switch-text">
-                                <a href="#" id="backToLogin" class="switch-link">Volver al inicio de sesión</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ============================================= -->
-        <!--         PANTALLA DE CONFIGURACIÓN DE PERFIL  -->
-        <!-- ============================================= -->
-        <div id="profileSetupScreen" class="profile-setup-screen">
-            <div class="setup-container">
-                <div class="setup-header">
-                    <div class="setup-logo">
-                        <i class="fas fa-user-secret"></i>
-                        <span>Secretos</span>
-                    </div>
-                    <h1>Completa tu Perfil</h1>
-                    <p>¡Casi listo! Ayúdanos a conocerte mejor para una experiencia personalizada.</p>
-                </div>
-
-                <div class="setup-progress">
-                    <div class="progress-step active" data-step="1">
-                        <div class="step-number">1</div>
-                        <div class="step-label">Información Básica</div>
-                    </div>
-                    <div class="progress-line"></div>
-                    <div class="progress-step" data-step="2">
-                        <div class="step-number">2</div>
-                        <div class="step-label">Foto de Perfil</div>
-                    </div>
-                    <div class="progress-line"></div>
-                    <div class="progress-step" data-step="3">
-                        <div class="step-number">3</div>
-                        <div class="step-label">Intereses</div>
-                    </div>
-                    <div class="progress-line"></div>
-                    <div class="progress-step" data-step="4">
-                        <div class="step-number">4</div>
-                        <div class="step-label">Privacidad</div>
-                    </div>
-                </div>
-
-                <div class="setup-content">
-                    <!-- Paso 1: Información Básica -->
-<!-- En index.html -->
-<!-- REEMPLAZA EL CONTENIDO DE <div class="setup-step" data-step="1"> CON ESTO -->
-
-<div class="setup-step active" data-step="1">
-    <h2 class="step-title-animated">Cuéntanos sobre ti</h2>
-    <p class="step-subtitle-animated">Esta información nos ayudará a personalizar tu experiencia.</p>
-    
-    <form id="basicInfoForm" class="setup-form modern-form">
-        <!-- Tarjeta para Nombre de Usuario (No editable) -->
-        <div class="form-card animated-card">
-            <label for="setupName">Nombre de usuario</label>
-            <div class="input-wrapper">
-                <i class="fas fa-user input-icon"></i>
-                <input type="text" id="setupName" placeholder="Tu nombre de usuario" required readonly>
-                <span class="readonly-indicator">
-                    <i class="fas fa-lock"></i> No se puede cambiar
-                </span>
-            </div>
-        </div>
-
-        <!-- Tarjeta para Biografía -->
-        <div class="form-card animated-card">
-            <label for="setupBio">Biografía (opcional)</label>
-            <div class="input-wrapper">
-                <i class="fas fa-feather-alt input-icon"></i>
-                <textarea id="setupBio" placeholder="Cuéntanos algo sobre ti..." rows="4"></textarea>
-                <div class="char-counter" id="bioCharCounter">0 / 150</div>
-            </div>
-        </div>
-
-        <!-- Tarjeta para Edad y Género (en una fila) -->
-        <div class="form-card animated-card">
-            <div class="input-row modern-row">
-                <div class="input-group">
-                    <label for="setupAge">Edad</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-birthday-cake input-icon"></i>
-                        <input type="number" id="setupAge" placeholder="25" min="13" max="120" required>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label for="setupGender">Género</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-venus-mars input-icon"></i>
-                        <select id="setupGender" required>
-
-                            <option value="male">Masculino</option>
-                            <option value="female">Femenino</option>
-                            <option value="other">Otro</option>
-                            <option value="prefer-not-to-say">Prefiero no decir</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tarjeta para País y Ciudad (en una fila) -->
-        <div class="form-card animated-card">
-            <div class="input-row modern-row">
-                <div class="input-group">
-                    <label for="setupCountry">País</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-globe-americas input-icon"></i>
-                        <select id="setupCountry" required>
-                            <option value="">Selecciona tu país</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label for="setupCity">Ciudad</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-map-marker-alt input-icon"></i>
-                        <select id="setupCity" required disabled>
-                            <option value="">Primero elige un país</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-
-
-
-                    <!-- Paso 2: Foto de Perfil -->
-                    <!-- En index.html -->
-<!-- REEMPLAZA EL CONTENIDO DE <div class="setup-step" data-step="2"> CON ESTO -->
-
-<div class="setup-step" data-step="2">
-    <h2 class="step-title-animated">Elige tu imagen de perfil</h2>
-    <p class="step-subtitle-animated">Sube una foto o genera un avatar único para representarte.</p>
-
-    <div class="profile-photo-container">
-        <!-- Lado Izquierdo: Vista Previa -->
-        <div class="photo-preview-wrapper animated-card">
-            <div class="photo-preview-modern" id="photoPreviewModern">
-                <!-- El contenido se generará con JS -->
-                <div class="default-avatar-modern">
-                    <i class="fas fa-user"></i>
-                </div>
-            </div>
-            <button type="button" class="remove-photo-btn" id="removePhotoBtnModern" style="display: none;">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-
-        <!-- Lado Derecho: Acciones -->
-        <div class="photo-actions-wrapper animated-card">
-            <!-- Opción 1: Subir Foto -->
-            <div class="upload-option-card" id="uploadArea">
-                <div class="upload-icon">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                </div>
-                <h4>Arrastra y suelta tu foto</h4>
-                <p>o</p>
-                <button type="button" class="auth-btn secondary" id="selectFileBtn">
-                    <i class="fas fa-camera"></i>
-                    <span>Seleccionar Archivo</span>
-                </button>
-                <input type="file" id="photoInput" accept="image/*" style="display: none;">
-                <p class="photo-info-modern">JPG, PNG, GIF (máx. 5MB)</p>
-            </div>
-
-            <!-- Opción 2: Generar Avatar -->
-            <div class="avatar-generator-card">
-                <h4>¿No tienes una foto?</h4>
-                <p>Crea un avatar único y divertido.</p>
-                <button type="button" class="auth-btn outline" id="generateAvatarBtn">
-                    <i class="fas fa-magic"></i>
-                    <span>Generar Avatar</span>
-                    <div class="btn-loader"></div>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-                   <!-- Paso 3: Intereses (Diseño Moderno) -->
-<div class="setup-step" data-step="3">
-    <h2 class="step-title-animated">¿Qué te apasiona?</h2>
-    <p class="step-subtitle-animated">Elige hasta 10 intereses para personalizar tu feed y conectar con gente como tú.</p>
-
-    <div class="interests-container-modern">
-        <!-- Barra de Búsqueda y Filtros -->
-        <div class="interests-toolbar animated-card">
-            <div class="search-wrapper">
-                <i class="fas fa-search"></i>
-                <input type="text" id="interestSearchInput" placeholder="Buscar intereses (ej: Viajes, Música...)">
-            </div>
-            <div class="counter-wrapper">
-                <span id="interestCounter">0/10</span>
-                <div class="counter-bar">
-                    <div id="counterProgressBar"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Cuadrícula de Intereses Mejorada -->
-        <div class="interests-grid-modern" id="interestsGrid">
-            <!-- Las tarjetas de intereses se generarán dinámicamente con JavaScript -->
-            <!-- Ejemplo de cómo se vería una tarjeta:
-            <div class="interest-card-modern" data-interest="tech">
-                <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
-                <span class="card-name">Tecnología</span>
-                <div class="card-checkmark"><i class="fas fa-check"></i></div>
-            </div>
-            -->
-        </div>
-        
-        <!-- Mensaje para cuando no hay resultados de búsqueda -->
-        <div id="noResultsMessage" class="no-results-message" style="display: none;">
-            <i class="fas fa-sad-tear"></i>
-            <p>No se encontraron intereses con ese nombre.</p>
-            <span>Intenta con otra palabra.</span>
-        </div>
-    </div>
-</div>
-
-
-                    <!-- Paso 4: Configuración de Privacidad -->
-                    <div class="setup-step" data-step="4">
-                        <h2>Configuración de Privacidad</h2>
-                        <p>Controla quién puede ver tu perfil y contenido</p>
-                        
-                        <div class="privacy-options">
-                            <div class="privacy-card" data-privacy="public">
-                                <div class="privacy-icon">
-                                    <i class="fas fa-globe"></i>
-                                </div>
-                                <h3>Público</h3>
-                                <p>Cualquiera puede ver tu perfil y secretos</p>
-                                <div class="privacy-radio">
-                                    <input type="radio" name="privacy" value="public" id="privacyPublic">
-                                    <label for="privacyPublic"></label>
-                                </div>
-                            </div>
-                            
-                            <div class="privacy-card" data-privacy="friends">
-                                <div class="privacy-icon">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                                <h3>Solo Seguidores</h3>
-                                <p>Solo tus seguidores pueden ver tu contenido</p>
-                                <div class="privacy-radio">
-                                    <input type="radio" name="privacy" value="friends" id="privacyFriends">
-                                    <label for="privacyFriends"></label>
-                                </div>
-                            </div>
-                            
-                            <div class="privacy-card" data-privacy="private">
-                                <div class="privacy-icon">
-                                    <i class="fas fa-lock"></i>
-                                </div>
-                                <h3>Privado</h3>
-                                <p>Solo tú puedes ver tu contenido</p>
-                                <div class="privacy-radio">
-                                    <input type="radio" name="privacy" value="private" id="privacyPrivate">
-                                    <label for="privacyPrivate"></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="setup-navigation">
-                    <button type="button" class="auth-btn outline" id="prevBtn" style="display: none;">
-                        <i class="fas fa-arrow-left"></i>
-                        <span>Anterior</span>
-                    </button>
-                    
-                    <button type="button" class="auth-btn primary" id="nextBtn">
-                        <span>Siguiente</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-                    
-                    <button type="button" class="auth-btn primary" id="completeBtn" style="display: none;">
-                        <span>Completar Perfil</span>
-                        <i class="fas fa-check"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pantalla de Completado -->
-        <div id="completionScreen" class="completion-screen">
-            <div class="completion-container">
-                <div class="completion-animation">
-                    <div class="success-icon">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
-                
-                <h2>¡Perfil Completado!</h2>
-                <p>Tu cuenta ha sido creada exitosamente. Bienvenido a la comunidad de Secretos.</p>
-                
-                <div class="profile-summary" id="profileSummary">
-                    <!-- El resumen se generará dinámicamente -->
-                </div>
-                
-                <button type="button" class="auth-btn primary" id="continueToApp">
-                    <span>Continuar a la Aplicación</span>
-                    <i class="fas fa-arrow-right"></i>
-                </button>
-            </div>
-        </div>
-
-
-<!-- En index.html, justo antes de </main> -->
-
-        <!-- ============================================= -->
-        <!--         PANTALLA PRINCIPAL / MENÚ             -->
-        <!-- ============================================= -->
-        <div id="mainMenuScreen" class="main-menu-screen">
-            <!-- Cabecera de la Aplicación -->
-            <header class="app-header">
-                <div class="app-logo">
-                    <i class="fas fa-user-secret"></i>
-                    <span>Secretos</span>
-                </div>
-                <div class="header-actions">
-                    <button class="action-btn search-btn"><i class="fas fa-search"></i></button>
-                    <button class="action-btn notifications-btn"><i class="fas fa-bell"></i></button>
-                    <div class="profile-avatar-wrapper">
-                        <img id="menuProfileAvatar" src="placeholder.jpg" alt="Tu avatar">
-                    </div>
-                </div>
-            </header>
-
-            <!-- Contenido Principal de la App (Aquí iría el feed, etc.) -->
-            <div class="app-content">
-                <h1 class="welcome-title">Bienvenido a tu Espacio, <span id="menuUsername">Usuario</span>.</h1>
-                <p class="welcome-subtitle">Este es el comienzo de todo. Próximamente, aquí verás tu feed de secretos.</p>
-                
-                <!-- Placeholder para el contenido futuro -->
-                <div class="content-placeholder">
-                    <i class="fas fa-stream"></i>
-                    <p>Feed de Contenido</p>
-                </div>
-            </div>
-
-            <!-- Barra de Navegación Inferior -->
-            <nav class="bottom-nav">
-                <a href="#" class="nav-item active">
-                    <i class="fas fa-home"></i>
-                    <span>Inicio</span>
-                </a>
-                <a href="#" class="nav-item">
-                    <i class="fas fa-plus-circle"></i>
-                    <span>Crear</span>
-                </a>
-                <a href="#" class="nav-item">
-                    <i class="fas fa-user"></i>
-                    <span>Perfil</span>
-                </a>
-            </nav>
-        </div>
-
-   
-
-
-
-
-    </main>
-
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner">
-            <div class="spinner"></div>
-        </div>
-        <p>Procesando...</p>
-    </div>
-
-    <!-- Toast Notifications -->
-    <div class="toast-container" id="toastContainer"></div>
-
-    <script type="module" src="script.js"></script>
-</body>
+        try {
+          let app = firebase.app();
+          let features = [
+            'auth', 
+            'database', 
+            'firestore',
+            'functions',
+            'messaging', 
+            'storage', 
+            'analytics', 
+            'remoteConfig',
+            'performance',
+          ].filter(feature => typeof app[feature] === 'function');
+          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+        } catch (e) {
+          console.error(e);
+          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+        }
+      });
+    </script>
+  </body>
 </html>
-
