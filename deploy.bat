@@ -49,17 +49,7 @@ echo -> Cambios subidos a GitHub correctamente.
 echo.
 
 REM ==================================================
-REM Paso 4: Construir el proyecto para produccion (NUEVO)
-REM ==================================================
-echo Construyendo la version de produccion...
-REM Este comando compila tu codigo fuente (React, Vue, Angular, etc.)
-REM y genera los archivos estaticos en la carpeta 'public' o 'dist'.
-npm run build
-echo -> Proyecto construido exitosamente.
-echo.
-
-REM ==================================================
-REM Paso 5: Desplegar a Firebase Hosting
+REM Paso 4: Desplegar a Firebase Hosting
 REM ==================================================
 echo Desplegando la nueva version a Firebase...
 REM Asegurate que la carpeta 'public' en firebase.json sea la correcta.
