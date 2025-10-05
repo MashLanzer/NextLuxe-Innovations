@@ -14,7 +14,7 @@ git commit -m "%COMMIT_MSG%"
 REM Subir a GitHub
 git push origin main
 
-REM Deploy a Firebase Hosting (limpia caché antes)
-firebase deploy --only hosting --project nextluxe-innovations-llc
+REM Deploy a Firebase Hosting
+firebase deploy --only hosting
 
 pause
