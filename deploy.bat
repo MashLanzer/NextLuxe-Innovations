@@ -27,12 +27,13 @@ REM Paso 2: Realizar el Commit
 REM ==================================================
 set /p COMMIT_MSG=Ingresa el mensaje del commit y presiona Enter: 
 
-git diff-index --quiet HEAD
+REM Comprobacion mejorada que ignora cambios de fin de linea
+git diff-index --quiet --ignore-cr-at-eol HEAD
 if %errorlevel%==1 (
     git commit -m "%COMMIT_MSG%"
     echo -^> Commit realizado con el mensaje: "%COMMIT_MSG%"
 ) else (
-    echo -^> No hay cambios para commitear. Todo esta al dia.
+    echo -^> No hay cambios reales para commitear. Todo esta al dia.
 )
 echo.
 
