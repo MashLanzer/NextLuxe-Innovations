@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "nextluxe-innovations-llc",
     "public": "public",
     "ignore": [
       "firebase.json",
