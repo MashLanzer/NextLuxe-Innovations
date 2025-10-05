@@ -1,5 +1,0 @@
-cd "/d/Projects/NextLuxeInnovations LLC"
-
-git add .
-git commit -m "Prueba de WorkFlows"
-git push
