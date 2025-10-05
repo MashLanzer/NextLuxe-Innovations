@@ -3,20 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NextLuxe Innovations LLC - Tu hogar, tu futuro</title>
+    <title>NextLuxe Innovations LLC - Tu Hogar, Tu Futuro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://i.imgur.com/your-favicon-url.png" type="image/png"> <!-- Opcional: Favicon -->
 </head>
 <body>
-    <!-- Navegación Minimalista -->
-    <header class="navbar">
-        <div class="container">
-            <div class="logo">
-                <span class="logo-text">NextLuxe</span>
-            </div>
+    <!-- ===== Barra de Navegación ===== -->
+<header class="navbar">
+    <div class="container">
+        <!-- Logo de imagen eliminado y reemplazado por texto -->
+        <a href="#inicio" class="logo-text">
+            NextLuxe Innovations
+        </a>
             <nav class="nav-menu">
                 <ul>
                     <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+                    <li><a href="#quienes-somos" class="nav-link">Quiénes Somos</a></li>
                     <li><a href="#propiedades" class="nav-link">Propiedades</a></li>
                     <li><a href="#contacto" class="nav-link">Contacto</a></li>
                 </ul>
@@ -29,53 +32,105 @@
         </div>
     </header>
 
-    <!-- Sección Hero para Inmobiliaria -->
+    <!-- ===== Sección Hero ===== -->
     <section id="inicio" class="hero">
         <div class="video-container">
             <video autoplay muted loop id="hero-video">
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-luxury-house-with-a-swimming-pool-in-the-backyard-49986-large.mp4" type="video/mp4">
-                Tu navegador no soporta el video tag.
+                <source src="https://i.imgur.com/P0szIrG_lq.mp4" type="video/mp4">
+                Tu navegador no soporta el tag de video.
             </video>
             <div class="overlay"></div>
         </div>
-        
         <div class="hero-content">
-            <div class="container">
-                <h1 class="hero-title">
-                    <span class="title-part">NextLuxe</span>
-                    <span class="title-part">Innovations LLC</span>
-                </h1>
-                <p class="hero-subtitle">Descubrimos el hogar de tus sueños</p>
-                <div class="hero-description">
-                    <p>Expertos en compra y venta de propiedades de lujo</p>
+            <h1 class="hero-title">El Hogar de Tus Sueños Te Espera</h1>
+            <p class="hero-subtitle">En NextLuxe Innovations, convertimos la búsqueda de tu propiedad de lujo en una experiencia única e inolvidable.</p>
+            <a href="#propiedades" class="btn btn-primary">Explorar Propiedades</a>
+        </div>
+        <a href="#quienes-somos" class="scroll-indicator">
+            <div class="scroll-down"></div>
+        </a>
+    </section>
+
+    <!-- ===== Sección Quiénes Somos ===== -->
+    <section id="quienes-somos" class="about-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Innovación y Lujo en Bienes Raíces</h2>
+                <p>Nuestra filosofía se centra en la excelencia, la confianza y una visión de futuro.</p>
+            </div>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg" alt="Equipo de NextLuxe Innovations">
                 </div>
-                <div class="hero-buttons">
-                    <a href="#propiedades" class="btn btn-primary">Ver Propiedades</a>
-                    <a href="#contacto" class="btn btn-outline">Agendar Visita</a>
-                </div>
-                <div class="hero-features">
-                    <div class="feature">
-                        <i class="fas fa-home"></i>
-                        <span>100+ Propiedades</span>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-users"></i>
-                        <span>500+ Clientes Felices</span>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-award"></i>
-                        <span>15 Años de Experiencia</span>
-                    </div>
+                <div class="about-text">
+                    <h3>Más que una inmobiliaria, tus aliados estratégicos.</h3>
+                    <p>NextLuxe Innovations LLC nació con el propósito de redefinir el mercado inmobiliario de lujo. No solo vendemos casas; ofrecemos un estilo de vida. Nuestro equipo de expertos se dedica a entender tus deseos y necesidades para encontrar no solo una casa, sino un verdadero hogar.</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> Asesoramiento Personalizado</li>
+                        <li><i class="fas fa-check-circle"></i> Acceso a Propiedades Exclusivas</li>
+                        <li><i class="fas fa-check-circle"></i> Procesos Transparentes y Eficientes</li>
+                        <li><i class="fas fa-check-circle"></i> Innovación Tecnológica en Cada Paso</li>
+                    </ul>
                 </div>
             </div>
         </div>
-        
-        <div class="scroll-indicator">
-            <div class="scroll-down"></div>
-            <span>Explorar más</span>
+    </section>
+
+    <!-- ===== Sección Propiedades (Placeholder ) ===== -->
+    <section id="propiedades" class="properties-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Propiedades Destacadas</h2>
+                <p>Una selección curada de las mejores residencias de lujo disponibles.</p>
+            </div>
+            <div class="properties-grid">
+                <!-- Aquí se cargarán las propiedades desde Firebase -->
+                <div class="property-card-placeholder">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Cargando propiedades...</p>
+                </div>
+                 <div class="property-card-placeholder">
+                    <i class="fas fa-home"></i>
+                    <p>Próximamente</p>
+                </div>
+                 <div class="property-card-placeholder">
+                    <i class="fas fa-home"></i>
+                    <p>Próximamente</p>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- ===== Pie de Página ===== -->
+    <footer id="contacto" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <img src="https://i.imgur.com/uVSHb2N.png" alt="Logo NextLuxe Innovations" class="footer-logo">
+                    <p>Transformando el futuro de los bienes raíces de lujo con innovación y un servicio excepcional.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#quienes-somos">Quiénes Somos</a></li>
+                        <li><a href="#propiedades">Propiedades</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contacto</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Luxury Ave, Miami, FL</p>
+                    <p><i class="fas fa-phone"></i> +1 (123 ) 456-7890</p>
+                    <p><i class="fas fa-envelope"></i> contacto@nextluxe.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 NextLuxe Innovations LLC. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/scrollreveal"></script>
     <script src="script.js"></script>
 </body>
 </html>

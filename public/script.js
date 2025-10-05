@@ -1,99 +1,77 @@
+// Espera a que el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', function() {
-    // Menú móvil
+
+    // ===== Configuración de Firebase =====
+    // Las credenciales ya están aquí, listas para usarse.
+    const firebaseConfig = {
+      apiKey: "AIzaSyDqt-7Sm73TcZRR7BaxB6Id_32dt8AKTrs",
+      authDomain: "nextluxe-innovations-llc.firebaseapp.com",
+      projectId: "nextluxe-innovations-llc",
+      storageBucket: "nextluxe-innovations-llc.appspot.com", // Corregido: .appspot.com es lo común
+      messagingSenderId: "148643193583",
+      appId: "1:148643193583:web:585023b9a18e2f6215f11a",
+      measurementId: "G-KNGL2NS6S8"
+    };
+
+    // Inicializar Firebase (descomentar cuando se importen las funciones)
+    // import { initializeApp } from "firebase/app";
+    // const app = initializeApp(firebaseConfig);
+    console.log("Configuración de Firebase lista.");
+
+
+    // ===== Menú de Navegación Móvil =====
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
-    
-    hamburger.addEventListener('click', function() {
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
-        
-        // Animación del menú hamburguesa
-        const spans = hamburger.querySelectorAll('span');
-        spans.forEach((span, index) => {
-            if (navMenu.classList.contains('active')) {
-                if (index === 0) span.style.transform = 'rotate(45deg) translateY(8px)';
-                if (index === 1) span.style.opacity = '0';
-                if (index === 2) span.style.transform = 'rotate(-45deg) translateY(-8px)';
-            } else {
-                span.style.transform = '';
-                span.style.opacity = '';
-            }
-        });
     });
-    
-    // Cerrar menú al hacer clic en un enlace
+
     document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
             navMenu.classList.remove('active');
-            
-            // Resetear animación del menú hamburguesa
-            const spans = hamburger.querySelectorAll('span');
-            spans.forEach(span => {
-                span.style.transform = '';
-                span.style.opacity = '';
-            });
         });
     });
-    
-    // Cambiar estilo de la barra de navegación al hacer scroll
-    window.addEventListener('scroll', function() {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 100) {
-            navbar.style.padding = '10px 0';
-            navbar.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+
+    // ===== Estilo de Navbar al hacer Scroll =====
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
         } else {
-            navbar.style.padding = '15px 0';
-            navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            navbar.classList.remove('scrolled');
         }
     });
-    
-    // Efecto parallax en la sección hero
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const heroContent = document.querySelector('.hero-content');
-        
-        if (heroContent) {
-            heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
-            heroContent.style.opacity = 1 - scrolled / 800;
-        }
-    });
-    
-    // Smooth scroll para enlaces internos
+
+    // ===== Smooth Scroll para Enlaces Internos =====
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            
             const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            // Por ahora solo mostramos una alerta ya que las secciones no existen
-            if (targetId === '#propiedades') {
-                alert('Próximamente podrás ver nuestras propiedades exclusivas');
-            } else if (targetId === '#contacto') {
-                alert('Próximamente podrás contactarnos para agendar una visita');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     });
     
-    // Animación de entrada para los elementos del hero
-    const animateHeroElements = function() {
-        const elements = document.querySelectorAll('.feature');
-        elements.forEach((element, index) => {
-            setTimeout(() => {
-                element.style.transform = 'translateY(0)';
-                element.style.opacity = '1';
-            }, 100 * index);
-        });
-    };
-    
-    // Ejecutar animación cuando la página cargue
-    setTimeout(animateHeroElements, 1600);
-    
-    // Preloader simple (opcional)
-    window.addEventListener('load', function() {
-        document.body.style.opacity = '0';
-        setTimeout(() => {
-            document.body.style.transition = 'opacity 0.5s ease';
-            document.body.style.opacity = '1';
-        }, 100);
+    // ===== Animaciones con ScrollReveal =====
+    const sr = ScrollReveal({
+        origin: 'bottom',
+        distance: '60px',
+        duration: 2000,
+        delay: 200,
+        reset: false // Las animaciones solo ocurren una vez
     });
+
+    // Aplicar animaciones a elementos específicos
+    sr.reveal('.hero-title, .hero-subtitle, .btn-primary', { delay: 400, origin: 'top' });
+    sr.reveal('.section-title', { origin: 'left' });
+    sr.reveal('.about-image', { origin: 'left', distance: '80px' });
+    sr.reveal('.about-text', { origin: 'right', distance: '80px' });
+    sr.reveal('.properties-grid .property-card-placeholder', { interval: 200 });
+    sr.reveal('.footer-about, .footer-links, .footer-contact', { interval: 200 });
+
 });
