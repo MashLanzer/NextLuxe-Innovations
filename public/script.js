@@ -69,9 +69,101 @@ document.addEventListener('DOMContentLoaded', function() {
     // Aplicar animaciones a elementos específicos
     sr.reveal('.hero-title, .hero-subtitle, .btn-primary', { delay: 400, origin: 'top' });
     sr.reveal('.section-title', { origin: 'left' });
-    sr.reveal('.about-image', { origin: 'left', distance: '80px' });
-    sr.reveal('.about-text', { origin: 'right', distance: '80px' });
+    sr.reveal('.about-content-glass', { duration: 1000, origin: 'bottom', distance: '100px', scale: 0.9 });
     sr.reveal('.properties-grid .property-card-placeholder', { interval: 200 });
     sr.reveal('.footer-about, .footer-links, .footer-contact', { interval: 200 });
 
+        // ... (código de ScrollReveal existente)
+    sr.reveal('.properties-grid .property-card-placeholder', { interval: 200 });
+
+    // AÑADIR ESTAS LÍNEAS
+ 
+    sr.reveal('.founder-flip-card', { interval: 200, origin: 'bottom' });
+
+    sr.reveal('.footer-about, .footer-links, .footer-contact', { interval: 200 });
+
+// Animación Coreografiada para el Mosaico
+sr.reveal('.panel-title', { origin: 'left', distance: '50px', duration: 800 });
+sr.reveal('.panel-image', { origin: 'right', distance: '50px', duration: 1000 });
+sr.reveal('.panel-description', { origin: 'bottom', distance: '50px', duration: 1000, delay: 200 });
+sr.reveal('.panel-feature', { origin: 'bottom', distance: '50px', interval: 200, duration: 600, delay: 400 });
+
+
+});
+
+// ===== Lógica para el Nuevo Carrusel de Hitos Sofisticado =====
+document.addEventListener('DOMContentLoaded', function() {
+    const navButtons = document.querySelectorAll('.nav-year');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const images = document.querySelectorAll('.carousel-img');
+    const progressBar = document.querySelector('.nav-line-progress');
+
+    navButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            const targetId = button.getAttribute('data-target');
+
+            // 1. Actualizar botones
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            // 2. Actualizar barra de progreso
+            const progressPercentage = (index / (navButtons.length - 1)) * 100;
+            progressBar.style.width = `${progressPercentage}%`;
+
+            // 3. Actualizar slides de contenido
+            slides.forEach(slide => {
+                slide.classList.toggle('active', slide.id === targetId);
+            });
+
+            // 4. Actualizar imágenes
+            images.forEach(img => {
+                img.classList.toggle('active', img.getAttribute('data-year') === targetId);
+            });
+        });
+    });
+});
+
+
+// ===== Lógica para el Modal de Login =====
+const loginModal = document.getElementById('login-modal');
+const openModalBtn = document.getElementById('login-investor-btn');
+const closeModalBtn = document.querySelector('.modal-close');
+
+openModalBtn.addEventListener('click', () => {
+    loginModal.style.display = 'flex';
+});
+
+closeModalBtn.addEventListener('click', () => {
+    loginModal.style.display = 'none';
+});
+
+// Cierra el modal si se hace clic fuera del contenido
+loginModal.addEventListener('click', (e) => {
+    if (e.target === loginModal) {
+        loginModal.style.display = 'none';
+    }
+});
+
+// Lógica de Firebase para el login (ejemplo)
+const loginForm = document.getElementById('login-form');
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+
+    // Aquí iría la lógica de autenticación con Firebase
+    // import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+    // const auth = getAuth();
+    // signInWithEmailAndPassword(auth, email, password)
+    //   .then((userCredential) => {
+    //     console.log("Usuario autenticado:", userCredential.user);
+    //     loginModal.style.display = 'none';
+    //     // Aquí mostrarías las secciones VIP
+    //   })
+    //   .catch((error) => {
+    //     alert("Error de autenticación: " + error.message);
+    //   });
+    
+    console.log("Intentando iniciar sesión con:", email, password);
+    alert("Funcionalidad de login en desarrollo. Conectando a Firebase...");
 });

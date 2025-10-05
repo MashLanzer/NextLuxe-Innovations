@@ -113,15 +113,121 @@ section { padding: 80px 0; }
 }
 .section-title p { font-size: 1.1rem; color: #666; max-width: 600px; margin: 15px auto 0; }
 
-/* ===== Sección Quiénes Somos ===== */
-.about-section { background: var(--light-gray); }
-.about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-.about-image img { width: 100%; border-radius: 10px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-.about-text h3 { font-size: 1.8rem; color: var(--primary-color); margin-bottom: 20px; }
-.about-text p { margin-bottom: 20px; }
-.features-list { list-style: none; padding: 0; }
-.features-list li { margin-bottom: 10px; display: flex; align-items: center; }
-.features-list i { color: var(--accent-color); font-size: 1.2rem; margin-right: 10px; }
+/* ===== Sección Quiénes Somos (NUEVO DISEÑO "MOSAICO INTERACTIVO" ) ===== */
+.mosaic-section {
+    background-color: var(--light-gray);
+    padding: 100px 0;
+}
+
+.mosaic-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto 1fr auto; /* <--- Reemplaza con esta línea */
+    gap: 25px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+
+.mosaic-panel {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    padding: 35px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.mosaic-panel:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* --- Posicionamiento de los Paneles en la Cuadrícula --- */
+.panel-title {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+}
+.panel-title:hover { transform: none; }
+
+.panel-image {
+    grid-column: 2 / 4;
+    grid-row: 1 / 4;
+    padding: 0;
+    overflow: hidden;
+}
+.panel-image img { width: 100%; height: 100%; object-fit: cover; }
+
+.panel-description {
+    grid-column: 1 / 2;
+    grid-row: 2 / 4;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+.panel-description h3 { font-size: 1.8rem; margin-bottom: 15px; color: var(--white-color); }
+.panel-description p { color: rgba(255, 255, 255, 0.8); }
+
+.panel-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid transparent;
+}
+
+/* --- NUEVAS REGLAS PARA POSICIONAR LAS CARACTERÍSTICAS --- */
+.mosaic-panel:nth-of-type(4) { /* El primer panel de característica */
+    grid-column: 1 / 2;
+    grid-row: 4 / 5;
+}
+.mosaic-panel:nth-of-type(5) { /* El segundo panel de característica */
+    grid-column: 2 / 3;
+    grid-row: 4 / 5;
+}
+.mosaic-panel:nth-of-type(6) { /* El tercer panel de característica */
+    grid-column: 3 / 4;
+    grid-row: 4 / 5;
+}
+/* --- FIN DE LAS NUEVAS REGLAS --- */
+
+.panel-feature:hover {
+    border-color: var(--accent-color);
+    background: linear-gradient(to top, var(--white-color), #fffaf0);
+}
+
+.panel-feature:hover {
+    border-color: var(--accent-color);
+    background: linear-gradient(to top, var(--white-color), #fffaf0);
+}
+
+.feature-icon-mosaic {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+.panel-feature h4 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* --- Responsive para el Mosaico --- */
+@media (max-width: 992px) {
+    .mosaic-grid {
+        grid-template-columns: 1fr; /* Apila todo en una columna */
+        grid-template-rows: auto;
+    }
+    /* Restablece el orden para una lectura lógica en móvil */
+    .panel-title { grid-column: 1; grid-row: 1; text-align: center; padding-bottom: 30px; }
+    .panel-title .section-title h2::after { left: 50%; transform: translateX(-50%); }
+    .panel-image { grid-column: 1; grid-row: 2; height: 300px; }
+    .panel-description { grid-column: 1; grid-row: 3; }
+    .panel-feature { grid-column: 1; /* Cada uno ocupa su propia fila */ }
+}
+
 
 /* ===== Sección Propiedades (Placeholder) ===== */
 .properties-section { background: var(--white-color); }
@@ -133,6 +239,276 @@ section { padding: 80px 0; }
     color: #999; text-align: center;
 }
 .property-card-placeholder i { font-size: 3rem; margin-bottom: 15px; color: var(--accent-color); }
+
+/* ===== Sección de Trayectoria (NUEVO DISEÑO "CARRUSEL SOFISTICADO" ) ===== */
+.timeline-carousel-section {
+    background-color: var(--light-gray);
+    padding: 80px 0;
+}
+
+.timeline-carousel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Columna Izquierda: Contenido */
+.carousel-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.carousel-content-track {
+    position: relative;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.carousel-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    visibility: hidden;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.slide-icon {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.carousel-slide h3 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.carousel-slide p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #555;
+}
+
+/* Navegación / Barra de Progreso */
+.carousel-nav {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-top: 40px;
+}
+
+.nav-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #ddd;
+    z-index: 1;
+}
+
+.nav-line-progress {
+    width: 0%; /* Se actualizará con JS */
+    height: 100%;
+    background-color: var(--accent-color);
+    transition: width 0.4s ease;
+}
+
+.nav-year {
+    background: #ddd;
+    color: #777;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.nav-year.active {
+    background-color: var(--accent-color);
+    color: var(--white-color);
+    transform: scale(1.2);
+}
+
+/* Columna Derecha: Imagen */
+.carousel-image-wrapper {
+    position: relative;
+    height: 450px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.carousel-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.1);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.carousel-img.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .timeline-carousel {
+        grid-template-columns: 1fr;
+    }
+    .carousel-image-wrapper {
+        margin-top: 40px;
+        height: 350px;
+    }
+}
+
+
+
+/* ===== Sección de Fundadores (Diseño de Tarjeta 3D Giratoria) ===== */
+.founders-section {
+    background-color: var(--light-gray);
+}
+
+.founders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    justify-content: center;
+    max-width: 1200px; /* Aumentado para 4 tarjetas */
+    margin: 0 auto;
+}
+
+.founder-flip-card {
+    background-color: transparent;
+    width: 100%;
+    height: 400px;
+    perspective: 1000px; /* Efecto 3D */
+}
+
+.founder-flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    border-radius: 15px;
+}
+
+.founder-flip-card:hover .founder-flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.founder-flip-card-front, .founder-flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Para Safari */
+    backface-visibility: hidden;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.founder-flip-card-front {
+    background-color: #bbb;
+    color: black;
+}
+
+.founder-flip-card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.founder-name-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: var(--white-color);
+    padding: 40px 20px 20px;
+    text-align: left;
+}
+
+.founder-name-overlay h3 {
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.founder-name-overlay span {
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.founder-flip-card-back {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.founder-flip-card-back i {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.founder-flip-card-back p {
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+
+/* Ajustes responsivos para las nuevas secciones */
+@media (max-width: 768px) {
+    .timeline-container::after {
+        left: 31px;
+    }
+    .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+        left: 0 !important;
+    }
+    .timeline-icon {
+        left: 6px !important;
+    }
+    .timeline-content {
+        text-align: left !important;
+    }
+}
+
 
 /* ===== Pie de Página ===== */
 .footer { background: var(--primary-color); color: var(--text-color-light); padding-top: 60px; }
@@ -146,6 +522,54 @@ section { padding: 80px 0; }
 .footer-contact p { display: flex; align-items: center; margin-bottom: 10px; }
 .footer-contact i { margin-right: 10px; color: var(--accent-color); }
 .footer-bottom { text-align: center; padding: 20px 0; border-top: 1px solid var(--secondary-color); }
+
+/* ===== Estilos para el Formulario de Suscripción en el Footer ===== */
+.footer-about h4 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+}
+
+.subscription-form {
+    display: flex;
+    margin-top: 20px;
+    max-width: 350px;
+    background-color: var(--secondary-color);
+    border-radius: 50px;
+    overflow: hidden;
+    border: 1px solid var(--secondary-color);
+}
+
+.subscription-form input {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    padding: 12px 20px;
+    color: var(--white-color);
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.subscription-form input::placeholder {
+    color: #aaa;
+}
+
+.subscription-form button {
+    border: none;
+    background-color: var(--accent-color);
+    color: var(--white-color);
+    padding: 0 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.subscription-form button:hover {
+    background-color: #b89b2e; /* Dorado más oscuro */
+}
+
 
 /* ===== Responsive ===== */
 @media (max-width: 992px) {
@@ -173,4 +597,133 @@ section { padding: 80px 0; }
     .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
     .hero-title { font-size: 2.5rem; }
     .hero-subtitle { font-size: 1.1rem; }
+}
+
+/* ===== BLOQUE 1: SECCIONES DE CRECIMIENTO Y CONFIANZA ===== */
+
+/* 1.1 Estilos para "Visión Futura" */
+.vision-section { background-color: var(--white-color); }
+.vision-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+.vision-card { text-align: center; padding: 30px; border: 1px solid #eee; border-radius: 15px; transition: var(--transition); }
+.vision-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); border-color: transparent; }
+.vision-icon { font-size: 2.5rem; color: var(--accent-color); margin-bottom: 20px; }
+.vision-card h3 { font-size: 1.4rem; color: var(--primary-color); margin-bottom: 10px; }
+
+/* 1.2 Estilos para "Panel en Tiempo Real" */
+.real-time-section { background-color: var(--primary-color); padding: 60px 0; }
+.real-time-section .container { display: flex; justify-content: space-around; text-align: center; }
+.stat-item h3 { font-size: 3rem; color: var(--accent-color); font-weight: 700; }
+.stat-item p { font-size: 1.1rem; color: var(--text-color-light); }
+
+/* 1.3 Estilos para "Certificaciones" */
+.certifications-section { background-color: var(--light-gray); }
+.logos-container { display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 30px; filter: grayscale(100%); opacity: 0.7; }
+.logos-container img { max-height: 50px; transition: var(--transition); }
+.logos-container img:hover { filter: grayscale(0%); opacity: 1; }
+
+
+/* ===== BLOQUE 2: SECCIONES PARA INVERSIONISTAS ===== */
+
+/* 2.1 Estilos para "Inversionistas" */
+.investors-section { position: relative; padding: 120px 0; text-align: center; color: var(--white-color); }
+.investors-background {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+    background: url('https://images.pexels.com/photos/3760069/pexels-photo-3760069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' ) no-repeat center center/cover;
+}
+.investors-background::after {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(10, 34, 64, 0.8);
+}
+.investors-content h2 { font-size: 2.8rem; margin-bottom: 20px; }
+.investors-content p { max-width: 700px; margin: 0 auto 30px; font-size: 1.2rem; }
+
+
+/* ===== BLOQUE 3: SECCIONES DE PROPIEDADES ESPECIALES ===== */
+
+/* 3.1 Estilos para "Propiedad del Mes" */
+.potm-section { background-color: var(--light-gray); }
+.potm-content { display: grid; grid-template-columns: 1.2fr 1fr; gap: 50px; align-items: center; }
+.potm-image { position: relative; }
+.potm-image img { width: 100%; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+.potm-image span {
+    position: absolute; top: 20px; left: 20px; background: var(--accent-color);
+    color: var(--white-color); padding: 8px 15px; border-radius: 50px;
+    font-weight: 600; font-size: 0.9rem;
+}
+.potm-details .section-title h2::after { left: 0; transform: none; }
+.potm-features { list-style: none; display: flex; gap: 25px; margin: 30px 0; font-weight: 600; }
+.potm-features i { color: var(--accent-color); margin-right: 8px; }
+
+
+/* ===== BLOQUE 4: SECCIONES DE EXCLUSIVIDAD Y COMUNIDAD ===== */
+
+/* 4.1 Estilos para "Eventos VIP" */
+.vip-events-section { background-color: var(--white-color); }
+.events-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.event-card { position: relative; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.event-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.event-card:hover img { transform: scale(1.05); }
+.event-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    padding: 40px 20px 20px; color: var(--white-color);
+}
+.event-info h4 { font-size: 1.5rem; }
+.event-info p { margin: 5px 0 15px; }
+.event-info a { color: var(--accent-color); text-decoration: none; font-weight: 600; }
+
+/* 4.2 Estilos para "Inspiración Futurista" */
+.futuristic-section { background-color: var(--light-gray); }
+.futuristic-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.futuristic-item { position: relative; border-radius: 15px; overflow: hidden; height: 400px; }
+.futuristic-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.futuristic-item:hover img { transform: scale(1.1); }
+.futuristic-overlay {
+    position: absolute; inset: 0; background: rgba(0,0,0,0.4);
+    display: flex; align-items: flex-end; padding: 30px;
+    opacity: 0; transition: opacity 0.5s ease;
+}
+.futuristic-item:hover .futuristic-overlay { opacity: 1; }
+.futuristic-overlay h3 { color: var(--white-color); font-size: 1.8rem; transform: translateY(20px); transition: transform 0.5s ease; }
+.futuristic-item:hover .futuristic-overlay h3 { transform: translateY(0); }
+
+
+/* ===== BLOQUE 5: ELEMENTOS INTERACTIVOS GLOBALES ===== */
+
+/* 5.1 Estilos para "Chatbot" */
+.chatbot-fab {
+    position: fixed; bottom: 30px; right: 30px;
+    width: 60px; height: 60px; background-color: #25D366;
+    color: white; border-radius: 50%; display: flex;
+    align-items: center; justify-content: center;
+    font-size: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 1001; transition: transform 0.3s ease;
+}
+.chatbot-fab:hover { transform: scale(1.1); }
+
+/* 5.2 Estilos para "Modal de Login" */
+.modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 2000;
+}
+.modal-content {
+    background: var(--white-color); padding: 40px; border-radius: 15px;
+    max-width: 400px; width: 90%; text-align: center; position: relative;
+}
+.modal-close {
+    position: absolute; top: 10px; right: 15px; background: none;
+    border: none; font-size: 2rem; cursor: pointer; color: #aaa;
+}
+.modal-content h3 { color: var(--primary-color); font-size: 1.8rem; margin-bottom: 10px; }
+#login-form { display: flex; flex-direction: column; gap: 15px; margin: 30px 0; }
+#login-form input { padding: 12px; border: 1px solid #ddd; border-radius: 8px; }
+#login-form button { width: 100%; padding: 14px; }
+.auth-switch { margin-top: 20px; }
+
+
+/* Estilos para la sección de Propiedades Secretas */
+.secret-properties-section {
+    background-color: var(--white-color);
+    padding: 80px 0;
 }
