@@ -1,6 +1,6 @@
 @echo off
 :: =================================================================
-:: SCRIPT DE DESPLIEGUE INTELIGENTE v2.0
+:: SCRIPT DE DESPLIEGUE INTELIGENTE v2.2 (Sin Build)
 :: Autor: Manus AI
 :: Proyecto: NextLuxe Innovations LLC
 :: =================================================================
@@ -27,7 +27,7 @@ cls
 
 :: --- PASO 1: NAVEGACION Y COMPROBACION DE CAMBIOS ---
 echo  =================================================================
-echo    PASO 1 de 5: Comprobando cambios en el proyecto...
+echo    PASO 1 de 4: Comprobando cambios en el proyecto...
 echo  =================================================================
 echo.
 cd /d "%PROJECT_PATH%"
@@ -42,21 +42,38 @@ echo.
 
 git diff-index --quiet --ignore-cr-at-eol HEAD
 if %errorlevel%==1 (
-    echo  [RESULTADO] He detectado cambios. Continuare con el proceso de commit.
-    goto :COMMIT_CHANGES
+    goto :PREVIEW_CHANGES
 ) else (
     echo  [RESULTADO] No he encontrado ningun cambio real en los archivos.
     echo  Tu proyecto ya esta sincronizado.
     goto :CHECK_DEPLOY
 )
+
+:: --- PASO 1.5: VISTA PREVIA DE CAMBIOS ---
+:PREVIEW_CHANGES
+echo  [RESULTADO] He detectado cambios.
+echo.
+echo  ------------------- VISTA PREVIA DE CAMBIOS -------------------
+git status
+echo  ---------------------------------------------------------------
+echo.
+set /p PREVIEW_CONFIRM= [PREGUNTA] Los archivos de arriba seran guardados. ¿Quieres continuar? (S/N): 
+if /i not "%PREVIEW_CONFIRM%"=="S" (
+    echo.
+    echo  [INFO] Proceso cancelado por el usuario. No se realizara ningun commit.
+    goto :END
+)
+echo.
+echo  [INFO] Confirmado. Continuare con el proceso de commit.
 echo.
 pause
 cls
+goto :COMMIT_CHANGES
 
 :: --- PASO 2: COMMIT DE CAMBIOS ---
 :COMMIT_CHANGES
 echo  =================================================================
-echo    PASO 2 de 5: Guardando los cambios (Commit)
+echo    PASO 2 de 4: Guardando los cambios (Commit)
 echo  =================================================================
 echo.
 set /p COMMIT_MSG= [PREGUNTA] Por favor, describe los cambios realizados: 
@@ -77,7 +94,7 @@ cls
 :: --- PASO 3: SUBIDA A GITHUB ---
 :PUSH_TO_GITHUB
 echo  =================================================================
-echo    PASO 3 de 5: Sincronizando con GitHub...
+echo    PASO 3 de 4: Sincronizando con GitHub...
 echo  =================================================================
 echo.
 echo  [ACCION] Voy a subir los nuevos commits a la rama '%GIT_BRANCH%' en GitHub.
@@ -93,34 +110,14 @@ echo.
 pause
 cls
 
-:: --- PASO 4: CONSTRUCCION DEL PROYECTO ---
-:BUILD_PROJECT
-echo  =================================================================
-echo    PASO 4 de 5: Construyendo la version de produccion...
-echo  =================================================================
-echo.
-echo  [ACCION] Voy a ejecutar 'npm run build' para compilar la version final del sitio.
-echo  Este paso es crucial para que tus cambios se puedan ver online.
-npm run build
-if %errorlevel% neq 0 (
-    echo.
-    echo  [ERROR] El proceso de 'build' ha fallado. Revisa los errores en la consola.
-    color 0C
-    goto :END
-)
-echo  [RESULTADO] Proyecto construido con exito. Los archivos finales estan listos.
-echo.
-pause
-cls
-
-:: --- PASO 5: DESPLIEGUE A FIREBASE ---
+:: --- PASO 4: DESPLIEGUE A FIREBASE ---
 :CHECK_DEPLOY
 echo  =================================================================
-echo    PASO 5 de 5: Despliegue a Firebase Hosting
+echo    PASO 4 de 4: Despliegue a Firebase Hosting
 echo  =================================================================
 echo.
-echo  [ADVERTENCIA] Estas a punto de desplegar una nueva version en el sitio:
-echo  %FIREBASE_PROJECT%
+echo  [ADVERTENCIA] Estas a punto de desplegar en el sitio: %FIREBASE_PROJECT%
+echo  [IMPORTANTE] Asegurate de haber ejecutado 'npm run build' si hiciste cambios.
 echo.
 set /p DEPLOY_CONFIRM= [PREGUNTA] ¿Estas seguro de que quieres continuar? (S/N): 
 if /i not "%DEPLOY_CONFIRM%"=="S" (
