@@ -3,28 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NextLuxe Innovations</title>
+    <title>NextLuxe Innovations LLC - Tu hogar, tu futuro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <div class="hero">
-            <video autoplay muted loop class="hero-video">
-                <source src="path/to/your/video.mp4" type="video/mp4">
-                Tu navegador no soporta video.
-            </video>
-            <div class="hero-content">
-                <h1>NextLuxe Innovations</h1>
-                <p>El Futuro del Lujo Inmobiliario</p>
-                <input type="text" placeholder="Buscar propiedades..." class="search-bar">
-                <div class="search-options">
-                    <button class="search-button">Comprar</button>
-                    <button class="search-button">Alquilar</button>
-                    <button class="search-button">Vender</button>
-                </div>
+    <!-- Navegación Minimalista -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-text">NextLuxe</span>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+                    <li><a href="#propiedades" class="nav-link">Propiedades</a></li>
+                    <li><a href="#contacto" class="nav-link">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </header>
-    <script src="scripts.js"></script>
+
+    <!-- Sección Hero para Inmobiliaria -->
+    <section id="inicio" class="hero">
+        <div class="video-container">
+            <video autoplay muted loop id="hero-video">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-luxury-house-with-a-swimming-pool-in-the-backyard-49986-large.mp4" type="video/mp4">
+                Tu navegador no soporta el video tag.
+            </video>
+            <div class="overlay"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="container">
+                <h1 class="hero-title">
+                    <span class="title-part">NextLuxe</span>
+                    <span class="title-part">Innovations LLC</span>
+                </h1>
+                <p class="hero-subtitle">Descubrimos el hogar de tus sueños</p>
+                <div class="hero-description">
+                    <p>Expertos en compra y venta de propiedades de lujo</p>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#propiedades" class="btn btn-primary">Ver Propiedades</a>
+                    <a href="#contacto" class="btn btn-outline">Agendar Visita</a>
+                </div>
+                <div class="hero-features">
+                    <div class="feature">
+                        <i class="fas fa-home"></i>
+                        <span>100+ Propiedades</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-users"></i>
+                        <span>500+ Clientes Felices</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-award"></i>
+                        <span>15 Años de Experiencia</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <div class="scroll-down"></div>
+            <span>Explorar más</span>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
 </body>
 </html>
