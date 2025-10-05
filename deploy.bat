@@ -1,6 +1,6 @@
 @echo off
 :: =================================================================
-:: SCRIPT DE DESPLIEGUE INTELIGENTE v2.2 (Sin Build)
+:: SCRIPT DE DESPLIEGUE ULTRA-RAPIDO v3.1
 :: Autor: Manus AI
 :: Proyecto: NextLuxe Innovations LLC
 :: =================================================================
@@ -11,115 +11,74 @@ set "GIT_BRANCH=main"
 set "FIREBASE_PROJECT=nextluxe-innovations-llc"
 
 :: --- INICIO DEL PROCESO ---
-TITLE Asistente de Despliegue Inteligente - %FIREBASE_PROJECT%
-color 0A
+TITLE Asistente de Despliegue Ultra-Rapido - %FIREBASE_PROJECT%
+color 0F
 cls
 
 echo.
 echo  =================================================================
-echo    ASISTENTE DE DESPLIEGUE PARA NEXTLUXE INNOVATIONS LLC
+echo    ASISTENTE DE DESPLIEGUE ULTRA-RAPIDO - NEXTLUXE INNOVATIONS LLC
 echo  =================================================================
 echo.
-echo  [INFO] Me asegurare de que todo este en orden antes de desplegar.
-echo.
-pause
-cls
 
-:: --- PASO 1: NAVEGACION Y COMPROBACION DE CAMBIOS ---
-echo  =================================================================
-echo    PASO 1 de 4: Comprobando cambios en el proyecto...
-echo  =================================================================
-echo.
+:: --- PASO 1: COMPROBANDO CAMBIOS ---
+echo  [PASO 1] Comprobando cambios en el proyecto...
 cd /d "%PROJECT_PATH%"
-echo  [ACCION] Me he movido a la carpeta del proyecto: %PROJECT_PATH%
-echo.
-echo  [ACCION] Voy a anadir todos los archivos nuevos o modificados a Git.
 git add .
-echo.
-echo  [DECISION] Ahora, voy a comprobar si realmente hay cambios para guardar.
-echo  (Ignorare diferencias de formato de linea para evitar commits vacios).
-echo.
 
 git diff-index --quiet --ignore-cr-at-eol HEAD
 if %errorlevel%==1 (
-    goto :PREVIEW_CHANGES
+    goto :CHANGES_FOUND
 ) else (
-    echo  [RESULTADO] No he encontrado ningun cambio real en los archivos.
-    echo  Tu proyecto ya esta sincronizado.
-    goto :CHECK_DEPLOY
+    echo  [INFO] No se encontraron cambios en los archivos. No se requiere accion.
+    goto :END
 )
 
-:: --- PASO 1.5: VISTA PREVIA DE CAMBIOS ---
-:PREVIEW_CHANGES
-echo  [RESULTADO] He detectado cambios.
+:: --- PASO 2: VISTA PREVIA Y COMMIT ---
+:CHANGES_FOUND
+echo  [INFO] Se han detectado cambios.
 echo.
 echo  ------------------- VISTA PREVIA DE CAMBIOS -------------------
 git status
 echo  ---------------------------------------------------------------
 echo.
-set /p PREVIEW_CONFIRM= [PREGUNTA] Los archivos de arriba seran guardados. ¿Quieres continuar? (S/N): 
-if /i not "%PREVIEW_CONFIRM%"=="S" (
+
+set /p COMMIT_MSG= [ACCION REQUERIDA] Describe los cambios para el commit: 
+if not defined COMMIT_MSG (
     echo.
-    echo  [INFO] Proceso cancelado por el usuario. No se realizara ningun commit.
+    echo  [ERROR] El mensaje del commit no puede estar vacio. Proceso cancelado.
+    color 0C
     goto :END
 )
-echo.
-echo  [INFO] Confirmado. Continuare con el proceso de commit.
-echo.
-pause
-cls
-goto :COMMIT_CHANGES
 
-:: --- PASO 2: COMMIT DE CAMBIOS ---
-:COMMIT_CHANGES
-echo  =================================================================
-echo    PASO 2 de 4: Guardando los cambios (Commit)
-echo  =================================================================
 echo.
-set /p COMMIT_MSG= [PREGUNTA] Por favor, describe los cambios realizados: 
-echo.
-echo  [ACCION] Realizando commit con el mensaje: "%COMMIT_MSG%"
+echo  [PASO 2] Guardando cambios con el mensaje: "%COMMIT_MSG%"
 git commit -m "%COMMIT_MSG%"
 if %errorlevel% neq 0 (
     echo.
-    echo  [ERROR] El commit ha fallado. Abortando el proceso.
+    echo  [ERROR] El commit ha fallado. Abortando.
     color 0C
     goto :END
 )
-echo  [RESULTADO] Cambios guardados localmente con exito.
-echo.
-pause
-cls
 
 :: --- PASO 3: SUBIDA A GITHUB ---
-:PUSH_TO_GITHUB
-echo  =================================================================
-echo    PASO 3 de 4: Sincronizando con GitHub...
-echo  =================================================================
 echo.
-echo  [ACCION] Voy a subir los nuevos commits a la rama '%GIT_BRANCH%' en GitHub.
+echo  [PASO 3] Sincronizando con el repositorio de GitHub...
 git push origin %GIT_BRANCH%
 if %errorlevel% neq 0 (
     echo.
-    echo  [ERROR] La subida a GitHub ha fallado. Comprueba tu conexion o credenciales.
+    echo  [ERROR] La subida a GitHub ha fallado. Abortando.
     color 0C
     goto :END
 )
-echo  [RESULTADO] Repositorio de GitHub actualizado correctamente.
-echo.
-pause
-cls
 
-:: --- PASO 4: DESPLIEGUE A FIREBASE ---
-:CHECK_DEPLOY
-echo  =================================================================
-echo    PASO 4 de 4: Despliegue a Firebase Hosting
-echo  =================================================================
+:: --- PASO 4: CONFIRMACION FINAL Y DESPLIEGUE ---
 echo.
-echo  [ADVERTENCIA] Estas a punto de desplegar en el sitio: %FIREBASE_PROJECT%
+echo  [PASO 4] Preparando despliegue a Firebase...
+echo.
 echo  [IMPORTANTE] Asegurate de haber ejecutado 'npm run build' si hiciste cambios.
 echo.
-set /p DEPLOY_CONFIRM= [PREGUNTA] ¿Estas seguro de que quieres continuar? (S/N): 
+set /p DEPLOY_CONFIRM= [ACCION REQUERIDA] ¿Desplegar la nueva version a '%FIREBASE_PROJECT%'? (S/N): 
 if /i not "%DEPLOY_CONFIRM%"=="S" (
     echo.
     echo  [INFO] Despliegue cancelado por el usuario.
@@ -127,7 +86,7 @@ if /i not "%DEPLOY_CONFIRM%"=="S" (
 )
 
 echo.
-echo  [ACCION] Confirmado. Desplegando a Firebase... ¡Alla vamos!
+echo  [INFO] Confirmado. Desplegando en Firebase...
 firebase deploy --only hosting --project %FIREBASE_PROJECT%
 if %errorlevel% neq 0 (
     echo.
@@ -135,12 +94,13 @@ if %errorlevel% neq 0 (
     color 0C
     goto :END
 )
-echo  [RESULTADO] ¡Despliegue completado con exito!
+
 echo.
+echo  [EXITO] ¡Despliegue completado!
+color 0A
 
 :: --- FINALIZACION ---
 :END
-color 0A
 echo.
 echo  =================================================================
 echo    PROCESO FINALIZADO.
