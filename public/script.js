@@ -124,14 +124,17 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// ===== Lógica para el Modal de Login =====
+// ===== Lógica para el Modal de Login (ACTUALIZADA) =====
 const loginModal = document.getElementById('login-modal');
-const openModalBtn = document.getElementById('login-investor-btn');
+const openModalBtns = document.querySelectorAll('#login-investor-btn, #login-investor-btn-nav'); // Selecciona ambos botones
 const closeModalBtn = document.querySelector('.modal-close');
 
-openModalBtn.addEventListener('click', () => {
-    loginModal.style.display = 'flex';
+openModalBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        loginModal.style.display = 'flex';
+    });
 });
+
 
 closeModalBtn.addEventListener('click', () => {
     loginModal.style.display = 'none';

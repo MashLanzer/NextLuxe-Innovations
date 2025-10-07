@@ -16,26 +16,45 @@
     <!-- 1. ATRACCIÓN: LA PRIMERA IMPRESIÓN                  -->
     <!-- ================================================== -->
 
-    <!-- ===== Barra de Navegación ===== -->
-    <header class="navbar">
-        <div class="container">
-            <!-- Logo de imagen eliminado y reemplazado por texto -->
-            <a href="#inicio" class="logo-text"> NextLuxe Innovations </a>
-            <nav class="nav-menu">
-                <ul>
-                    <li><a href="#inicio" class="nav-link active">Inicio</a></li>
-                    <li><a href="#quienes-somos" class="nav-link">Quiénes Somos</a></li>
-                    <li><a href="#propiedades" class="nav-link">Propiedades</a></li>
-                    <li><a href="#contacto" class="nav-link">Contacto</a></li>
-                </ul>
-            </nav>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+<!-- ===== Barra de Navegación (ESTRATÉGICA Y ACTUALIZADA) ===== -->
+<header class="navbar">
+    <div class="container">
+        <a href="#inicio" class="logo-text"> NextLuxe Innovations </a>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+                <li><a href="#quienes-somos" class="nav-link">Quiénes Somos</a></li>
+                <li><a href="#propiedades" class="nav-link">Propiedades</a></li>
+                
+                <!-- Menú Desplegable "Explorar" -->
+                <li class="dropdown">
+                    <a href="#" class="nav-link">Explorar <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#timeline">Nuestra Evolución</a></li>
+                        <li><a href="#vision-futura">Visión Futura</a></li>
+                        <li><a href="#vip-events">Eventos VIP</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="#contacto" class="nav-link">Contacto</a></li>
+            </ul>
+        </nav>
+        
+<!-- Botones de Acción en la Navegación -->
+<div class="nav-actions">
+        <button class="btn btn-outline-dark" id="login-investor-btn-nav">Portal</button>
+    <button class="btn btn-outline-dark" id="dashboard-btn-nav">Dashboard</button>
+</div>
+
+
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-    </header>
+    </div>
+</header>
+
 
     <!-- ===== Sección Hero ===== -->
     <section id="inicio" class="hero">
@@ -510,8 +529,8 @@
                     de NextLuxe.
                 </p>
                 <!-- Este botón abrirá un modal de login o redirigirá a una página de login -->
-                <button class="btn btn-primary" id="login-investor-btn">
-                    Acceder al Portal de Inversionistas
+                <button class="btn-outline-light" id="login-investor-btn">
+                    Acceder al Portal
                 </button>
             </div>
         </div>

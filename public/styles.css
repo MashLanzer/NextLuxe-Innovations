@@ -31,6 +31,9 @@ section { padding: 80px 0; }
     border-bottom: 1px solid #eee;
 }
 .navbar .container { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+
+
+
 .logo img { height: 45px; transition: var(--transition); }
 .logo img:hover { transform: scale(1.05); }
 .nav-menu ul { display: flex; list-style: none; }
@@ -58,6 +61,132 @@ section { padding: 80px 0; }
 
 .logo-text:hover {
     color: var(--accent-color); /* Cambia a color dorado al pasar el mouse */
+}
+
+/* ===== Estilos para Navegación Avanzada (DISEÑO REFINADO Y MODERNO) ===== */
+
+
+
+/* Botón CTA con efecto de relleno */
+.btn-outline-dark {
+    padding: 10px 24px;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 50px;
+    font-weight: 600;
+    background: linear-gradient(to right, var(--primary-color) 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: all .4s ease-out;
+    cursor: pointer;
+    text-decoration: none; /* Para asegurar que se vea bien si se usa como <a> */
+    display: inline-block;
+}
+
+.btn-outline-dark:hover {
+    background-position: left bottom;
+    color: var(--white-color);
+}
+
+/* Estilos para el Menú Desplegable */
+.dropdown {
+    position: relative;
+}
+
+.dropdown .nav-link i {
+    font-size: 0.8rem;
+    margin-left: 6px;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Animación de la flecha */
+.dropdown:hover .nav-link i {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 180%; /* Oculto y más abajo para la animación */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--white-color);
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    list-style: none;
+    padding: 12px 0;
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transition: top 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 10;
+    border: 1px solid #f0f0f0;
+}
+
+/* Animación de aparición del menú */
+.dropdown:hover .dropdown-menu {
+    top: 120%; /* Posición final, un poco separado de la barra */
+    opacity: 1;
+    visibility: visible;
+}
+
+.dropdown-menu li {
+    margin: 0;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 14px 24px;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease, padding-left 0.3s ease;
+    white-space: nowrap; /* <-- ESTA LÍNEA EVITA QUE EL TEXTO SE PARTA */
+}
+
+
+.dropdown-menu a:hover {
+    background-color: var(--light-gray);
+    color: var(--accent-color);
+    padding-left: 28px; /* Pequeño efecto de indentación */
+}
+
+/* Ajustes para el menú hamburguesa en móvil */
+@media (max-width: 992px) {
+    .nav-actions { display: none; }
+    .dropdown-menu { display: none; } /* Mantenemos el menú desplegable oculto en móvil */
+    .dropdown .nav-link i { display: none; } /* Ocultamos la flecha en móvil */
+}
+
+/* Botón CTA Invertido para Fondos Oscuros */
+.btn-outline-light {
+      box-sizing: border-box;
+    padding: 12px 28px;
+    border: 2px solid var(--white-color);
+    color: var(--white-color);
+    border-radius: 50px;
+    font-weight: 600;
+    background: linear-gradient(to right, var(--white-color) 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: all .4s ease-out;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase; /* Añadido para más impacto */
+    letter-spacing: 1px;
+}
+
+.btn-outline-light:hover {
+    background-position: left bottom;
+    color: var(--primary-color); /* El texto cambia a azul oscuro */
+}
+
+/* --- Estilos para Múltiples Botones de Acción --- */
+.nav-actions {
+    margin-left: auto; /* Empuja los botones a la derecha */
+    display: flex;     /* Usa Flexbox para alinear los botones */
+    align-items: center;
+    gap: 15px;         /* <-- ESTA LÍNEA AÑADE ESPACIO ENTRE LOS BOTONES */
 }
 
 
