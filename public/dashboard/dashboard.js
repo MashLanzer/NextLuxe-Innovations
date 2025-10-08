@@ -1,77 +1,74 @@
 // Contenido de dashboard/dashboard.js
 
-// El "Router" del Dashboard
-const router = {
-    'overview': {
-        path: 'dashboard/views/overview.html',
-        title: 'Visión General'
-    },
-    'properties': {
-        path: 'dashboard/views/properties.html',
-        title: 'Mis Propiedades'
-    },
-    'profile': {
-        path: 'dashboard/views/profile.html',
-        title: 'Mi Perfil'
-    }
-};
+// --- IMPORTACIONES ---
+// (Aquí podrías importar funciones de Firebase para obtener datos del dashboard)
 
-// Función para cargar una vista específica
-async function loadView(viewName) {
-    const view = router[viewName];
-    if (!view) {
-        console.error(`La vista "${viewName}" no existe.`);
-        return;
-    }
+// --- FUNCIÓN PARA CARGAR EL DASHBOARD (EXPORTADA) ---
+export async function loadDashboardPage() {
+    if (document.querySelector('.dashboard-container')) return; // Evita duplicados
 
     try {
-        const response = await fetch(view.path);
-        if (!response.ok) throw new Error(`No se pudo cargar ${view.path}`);
+        // Cargar CSS
+        const cssLink = document.createElement('link');
+        cssLink.rel = 'stylesheet';
+        cssLink.href = 'dashboard/dashboard.css';
+        cssLink.id = 'dashboard-css';
+        document.head.appendChild(cssLink);
+
+        // Cargar HTML
+        const response = await fetch('dashboard/dashboard.html');
+        if (!response.ok) throw new Error('No se pudo cargar dashboard.html');
         const html = await response.text();
+        
+        // Crear contenedor y añadirlo
+        const container = document.createElement('div');
+        container.id = 'dashboard-page-container';
+        container.innerHTML = html;
+        document.body.appendChild(container);
 
-        // Actualizar el contenido y el título
-        document.getElementById('dashboard-view-content').innerHTML = html;
-        document.getElementById('dashboard-view-title').textContent = view.title;
+        // Inicializar la lógica interna del dashboard
+        initializeDashboardInternals();
 
-        // Aquí podrías llamar a funciones específicas para cada vista
-        // ej: if (viewName === 'overview') { loadOverviewCharts(); }
+        // Animar la entrada
+        setTimeout(() => {
+            document.querySelector('.dashboard-container').style.opacity = '1';
+        }, 50);
 
     } catch (error) {
-        console.error('Error al cargar la vista:', error);
+        console.error('Error al cargar el dashboard:', error);
     }
 }
 
-// Función principal que se ejecuta cuando el dashboard se carga
-export function initializeDashboard() {
-    const navItems = document.querySelectorAll('.sidebar-nav .nav-item');
-    
-    // Cargar la vista inicial (overview)
-    loadView('overview');
+// --- LÓGICA INTERNA DEL DASHBOARD ---
+function initializeDashboardInternals() {
+    const router = {
+        'overview': { path: 'dashboard/views/overview.html', title: 'Visión General' },
+        'properties': { path: 'dashboard/views/properties.html', title: 'Mis Propiedades' },
+        'profile': { path: 'dashboard/views/profile.html', title: 'Mi Perfil' }
+    };
 
-    // Añadir listeners a los botones de navegación
+    async function loadView(viewName) {
+        // ... (la función loadView que ya tenías)
+    }
+
+    const navItems = document.querySelectorAll('.sidebar-nav .nav-item');
     navItems.forEach(item => {
         item.addEventListener('click', (e) => {
             e.preventDefault();
             const viewName = item.getAttribute('data-view');
-            
-            // Actualizar el estado activo
             navItems.forEach(i => i.classList.remove('active'));
             item.classList.add('active');
-
-            // Cargar la nueva vista
             loadView(viewName);
         });
     });
 
-    // Lógica del botón de logout
-    const logoutButton = document.getElementById('dashboard-logout-btn');
-    logoutButton.addEventListener('click', () => {
-        // Aquí iría la lógica de Firebase para cerrar sesión
-        // import { getAuth, signOut } from "firebase/auth";
-        // const auth = getAuth();
-        // signOut(auth).then(() => { ... });
-        
+    // Cargar vista inicial
+    loadView('overview');
+
+    // Lógica de Logout
+    document.getElementById('dashboard-logout-btn').addEventListener('click', () => {
         alert('Cerrando sesión...');
-        document.querySelector('.dashboard-container').remove(); // Cierra el dashboard
+        document.getElementById('dashboard-page-container').remove();
+        document.getElementById('dashboard-css').remove();
     });
 }

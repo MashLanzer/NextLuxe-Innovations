@@ -1,99 +1,123 @@
-// Espera a que el DOM esté completamente cargado
+// =================================================================
+// SCRIPT.JS - CÓDIGO PRINCIPAL CONSOLIDADO Y CORREGIDO
+// =================================================================
+
+// --- IMPORTACIONES (SIEMPRE AL PRINCIPIO DEL ARCHIVO) ---
+// Importa las funciones para cargar las "páginas" dinámicas.
+// Asegúrate de que los archivos auth.js y dashboard/dashboard.js existan.
+import { loadLoginPage } from './auth.js';
+import { loadDashboardPage } from './dashboard/dashboard.js';
+
+
+// --- INICIALIZACIÓN PRINCIPAL (UN SOLO DOMContentLoaded) ---
 document.addEventListener('DOMContentLoaded', function() {
 
-    // ===== Configuración de Firebase =====
-    // Las credenciales ya están aquí, listas para usarse.
+    // --- CONFIGURACIÓN DE FIREBASE ---
     const firebaseConfig = {
       apiKey: "AIzaSyDqt-7Sm73TcZRR7BaxB6Id_32dt8AKTrs",
       authDomain: "nextluxe-innovations-llc.firebaseapp.com",
       projectId: "nextluxe-innovations-llc",
-      storageBucket: "nextluxe-innovations-llc.appspot.com", // Corregido: .appspot.com es lo común
+      storageBucket: "nextluxe-innovations-llc.appspot.com",
       messagingSenderId: "148643193583",
       appId: "1:148643193583:web:585023b9a18e2f6215f11a",
       measurementId: "G-KNGL2NS6S8"
     };
+    // Descomenta las siguientes líneas cuando estés listo para usar Firebase
+    // import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+    // const app = initializeApp(firebaseConfig );
+    console.log("Configuración de Firebase lista para ser inicializada.");
 
-    // Inicializar Firebase (descomentar cuando se importen las funciones)
-    // import { initializeApp } from "firebase/app";
-    // const app = initializeApp(firebaseConfig);
-    console.log("Configuración de Firebase lista.");
 
-
-    // ===== Menú de Navegación Móvil =====
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
-
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-        });
-    });
-
-    // ===== Estilo de Navbar al hacer Scroll =====
-    const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-
-    // ===== Smooth Scroll para Enlaces Internos =====
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-    });
-    
-    // ===== Animaciones con ScrollReveal =====
-    const sr = ScrollReveal({
-        origin: 'bottom',
-        distance: '60px',
-        duration: 2000,
-        delay: 200,
-        reset: false // Las animaciones solo ocurren una vez
-    });
-
-    // Aplicar animaciones a elementos específicos
-    sr.reveal('.hero-title, .hero-subtitle, .btn-primary', { delay: 400, origin: 'top' });
-    sr.reveal('.section-title', { origin: 'left' });
-    sr.reveal('.about-content-glass', { duration: 1000, origin: 'bottom', distance: '100px', scale: 0.9 });
-    sr.reveal('.properties-grid .property-card-placeholder', { interval: 200 });
-    sr.reveal('.footer-about, .footer-links, .footer-contact', { interval: 200 });
-
-        // ... (código de ScrollReveal existente)
-    sr.reveal('.properties-grid .property-card-placeholder', { interval: 200 });
-
-    // AÑADIR ESTAS LÍNEAS
- 
-    sr.reveal('.founder-flip-card', { interval: 200, origin: 'bottom' });
-
-    sr.reveal('.footer-about, .footer-links, .footer-contact', { interval: 200 });
-
-// Animación Coreografiada para el Mosaico
-sr.reveal('.panel-title', { origin: 'left', distance: '50px', duration: 800 });
-sr.reveal('.panel-image', { origin: 'right', distance: '50px', duration: 1000 });
-sr.reveal('.panel-description', { origin: 'bottom', distance: '50px', duration: 1000, delay: 200 });
-sr.reveal('.panel-feature', { origin: 'bottom', distance: '50px', interval: 200, duration: 600, delay: 400 });
-
+    // --- INICIALIZACIÓN DE MÓDULOS DE LA PÁGINA ---
+    initializeNavbar();
+    initializeScrollAnimations();
+    initializeTimelineCarousel();
+    initializeActionButtons();
 
 });
 
-// ===== Lógica para el Nuevo Carrusel de Hitos Sofisticado =====
-document.addEventListener('DOMContentLoaded', function() {
+
+// =================================================================
+// --- FUNCIONES DE INICIALIZACIÓN (Llamadas desde DOMContentLoaded) ---
+// =================================================================
+
+/**
+ * Inicializa toda la lógica de la barra de navegación (scroll, menú móvil, smooth scroll).
+ */
+function initializeNavbar() {
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    const navbar = document.querySelector('.navbar');
+
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    }
+
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            if (targetId.length > 1) {
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    });
+}
+
+/**
+ * Inicializa las animaciones de entrada con ScrollReveal.
+ */
+function initializeScrollAnimations() {
+    if (typeof ScrollReveal === 'undefined') {
+        console.error("ScrollReveal no está cargado.");
+        return;
+    }
+    const sr = ScrollReveal({
+        origin: 'bottom',
+        distance: '60px',
+        duration: 1000,
+        delay: 100,
+        reset: false
+    });
+
+    sr.reveal('.hero-title, .hero-subtitle, .btn-primary', { delay: 200, origin: 'top' });
+    sr.reveal('.section-title', { origin: 'left' });
+    sr.reveal('.panel-title', { origin: 'left', distance: '50px' });
+    sr.reveal('.panel-image', { origin: 'right', distance: '50px', delay: 100 });
+    sr.reveal('.panel-description', { origin: 'bottom', distance: '50px', delay: 200 });
+    sr.reveal('.panel-feature', { origin: 'bottom', distance: '50px', interval: 150, delay: 300 });
+    sr.reveal('.stat-item', { interval: 150 });
+    sr.reveal('.founder-flip-card', { interval: 150, scale: 0.95 });
+    sr.reveal('.certifications-section .logos-container img', { interval: 100 });
+    sr.reveal('.potm-image', { origin: 'left' });
+    sr.reveal('.potm-details', { origin: 'right', delay: 100 });
+    sr.reveal('.timeline-carousel', { scale: 0.95 });
+    sr.reveal('.vision-card', { interval: 150 });
+    sr.reveal('.futuristic-item', { interval: 150 });
+    sr.reveal('.event-card', { interval: 150 });
+    sr.reveal('.investors-content', { scale: 0.9 });
+    sr.reveal('.footer-about, .footer-links, .footer-contact', { interval: 150, origin: 'top' });
+}
+
+/**
+ * Inicializa la lógica del carrusel de la sección "Nuestra Evolución".
+ */
+function initializeTimelineCarousel() {
     const navButtons = document.querySelectorAll('.nav-year');
+    if (navButtons.length === 0) return;
+
     const slides = document.querySelectorAll('.carousel-slide');
     const images = document.querySelectorAll('.carousel-img');
     const progressBar = document.querySelector('.nav-line-progress');
@@ -101,118 +125,39 @@ document.addEventListener('DOMContentLoaded', function() {
     navButtons.forEach((button, index) => {
         button.addEventListener('click', () => {
             const targetId = button.getAttribute('data-target');
-
-            // 1. Actualizar botones
             navButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-
-            // 2. Actualizar barra de progreso
-            const progressPercentage = (index / (navButtons.length - 1)) * 100;
-            progressBar.style.width = `${progressPercentage}%`;
-
-            // 3. Actualizar slides de contenido
-            slides.forEach(slide => {
-                slide.classList.toggle('active', slide.id === targetId);
-            });
-
-            // 4. Actualizar imágenes
-            images.forEach(img => {
-                img.classList.toggle('active', img.getAttribute('data-year') === targetId);
-            });
+            if(progressBar) {
+                const progressPercentage = (index / (navButtons.length - 1)) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+            }
+            slides.forEach(slide => slide.classList.toggle('active', slide.id === targetId));
+            images.forEach(img => img.classList.toggle('active', img.getAttribute('data-year') === targetId));
         });
     });
-});
+}
 
+/**
+ * Asigna los eventos a los botones de acción "Portal" y "Dashboard".
+ */
+function initializeActionButtons() {
+    const portalButton = document.getElementById('login-investor-btn-nav');
+    const dashboardButton = document.getElementById('dashboard-btn-nav');
 
-// ===== Lógica para el Modal de Login (ACTUALIZADA) =====
-const loginModal = document.getElementById('login-modal');
-const openModalBtns = document.querySelectorAll('#login-investor-btn, #login-investor-btn-nav'); // Selecciona ambos botones
-const closeModalBtn = document.querySelector('.modal-close');
-
-openModalBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        loginModal.style.display = 'flex';
-    });
-});
-
-
-closeModalBtn.addEventListener('click', () => {
-    loginModal.style.display = 'none';
-});
-
-// Cierra el modal si se hace clic fuera del contenido
-loginModal.addEventListener('click', (e) => {
-    if (e.target === loginModal) {
-        loginModal.style.display = 'none';
+    if (portalButton) {
+        portalButton.addEventListener('click', () => {
+            // El botón "Portal" siempre intenta cargar la página de login
+            loadLoginPage();
+        });
     }
-});
 
-// Lógica de Firebase para el login (ejemplo)
-const loginForm = document.getElementById('login-form');
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
-
-    // Aquí iría la lógica de autenticación con Firebase
-    // import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-    // const auth = getAuth();
-    // signInWithEmailAndPassword(auth, email, password)
-    //   .then((userCredential) => {
-    //     console.log("Usuario autenticado:", userCredential.user);
-    //     loginModal.style.display = 'none';
-    //     // Aquí mostrarías las secciones VIP
-    //   })
-    //   .catch((error) => {
-    //     alert("Error de autenticación: " + error.message);
-    //   });
-    
-    console.log("Intentando iniciar sesión con:", email, password);
-    alert("Funcionalidad de login en desarrollo. Conectando a Firebase...");
-});
-
-
-// ===== LÓGICA PARA CARGAR PÁGINAS DINÁMICAS (SPA) =====
-
-// Importa la función de inicialización desde login.js
-import { initializeLogin } from './login.js';
-
-const pageLoader = document.getElementById('page-loader');
-const openLoginButton = document.getElementById('login-investor-btn-nav'); // Botón del portal en la navbar
-
-openLoginButton.addEventListener('click', loadLoginPage);
-
-async function loadLoginPage() {
-    try {
-        // 1. Cargar el HTML
-        const response = await fetch('login.html');
-        if (!response.ok) throw new Error('No se pudo cargar login.html');
-        const html = await response.text();
-        
-        // 2. Cargar el CSS
-        const head = document.querySelector('head');
-        const cssLink = document.createElement('link');
-        cssLink.rel = 'stylesheet';
-        cssLink.href = 'login.css';
-        cssLink.id = 'login-css'; // Le damos un ID para poder quitarlo después
-        head.appendChild(cssLink);
-
-        // 3. Insertar el HTML en el contenedor
-        pageLoader.innerHTML = html;
-        
-        // Pequeño retardo para que el CSS se aplique antes de la animación
-        setTimeout(() => {
-            const loginContainer = document.querySelector('.login-container');
-            const loginBox = document.querySelector('.login-box');
-            loginContainer.style.opacity = '1';
-            loginBox.style.transform = 'scale(1)';
-        }, 50);
-
-        // 4. Ejecutar el JavaScript del login
-        initializeLogin();
-
-    } catch (error) {
-        console.error('Error al cargar la página de login:', error);
-        alert('No se pudo cargar el portal en este momento. Por favor, inténtalo de nuevo más tarde.');
+    if (dashboardButton) {
+        dashboardButton.addEventListener('click', () => {
+            // El botón "Dashboard" debería verificar si el usuario está logueado.
+            // Por ahora, para probar, también cargará el login.
+            // En el futuro, aquí iría: if (userIsLoggedIn) { loadDashboardPage(); } else { loadLoginPage(); }
+            alert("Funcionalidad de Dashboard en desarrollo. Redirigiendo al login para probar.");
+            loadLoginPage();
+        });
     }
 }
