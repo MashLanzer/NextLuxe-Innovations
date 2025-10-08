@@ -170,3 +170,49 @@ loginForm.addEventListener('submit', (e) => {
     console.log("Intentando iniciar sesión con:", email, password);
     alert("Funcionalidad de login en desarrollo. Conectando a Firebase...");
 });
+
+
+// ===== LÓGICA PARA CARGAR PÁGINAS DINÁMICAS (SPA) =====
+
+// Importa la función de inicialización desde login.js
+import { initializeLogin } from './login.js';
+
+const pageLoader = document.getElementById('page-loader');
+const openLoginButton = document.getElementById('login-investor-btn-nav'); // Botón del portal en la navbar
+
+openLoginButton.addEventListener('click', loadLoginPage);
+
+async function loadLoginPage() {
+    try {
+        // 1. Cargar el HTML
+        const response = await fetch('login.html');
+        if (!response.ok) throw new Error('No se pudo cargar login.html');
+        const html = await response.text();
+        
+        // 2. Cargar el CSS
+        const head = document.querySelector('head');
+        const cssLink = document.createElement('link');
+        cssLink.rel = 'stylesheet';
+        cssLink.href = 'login.css';
+        cssLink.id = 'login-css'; // Le damos un ID para poder quitarlo después
+        head.appendChild(cssLink);
+
+        // 3. Insertar el HTML en el contenedor
+        pageLoader.innerHTML = html;
+        
+        // Pequeño retardo para que el CSS se aplique antes de la animación
+        setTimeout(() => {
+            const loginContainer = document.querySelector('.login-container');
+            const loginBox = document.querySelector('.login-box');
+            loginContainer.style.opacity = '1';
+            loginBox.style.transform = 'scale(1)';
+        }, 50);
+
+        // 4. Ejecutar el JavaScript del login
+        initializeLogin();
+
+    } catch (error) {
+        console.error('Error al cargar la página de login:', error);
+        alert('No se pudo cargar el portal en este momento. Por favor, inténtalo de nuevo más tarde.');
+    }
+}
